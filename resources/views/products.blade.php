@@ -27,10 +27,14 @@
     <div class="products">
         @foreach ($products as $product)
             <div class="product-card">
-                <h3>{{ $product['name'] }}</h3>
-                <p class="price">{{ $product['price'] }} NIS</p>
+                <h3>{{ $product->name }}</h3>
+
+                <p class="price">
+                    {{ $product->price }} NIS
+                </p>
+
                 <p class="category-name">
-                    Category: {{ $product['category'] }}
+                    Category: {{ $product->category }}
                 </p>
             </div>
         @endforeach

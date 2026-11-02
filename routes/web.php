@@ -1,7 +1,9 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
 
@@ -16,12 +18,7 @@ Route::get('/', function () {
 
 Route::get('/products', function () {
 
-    $products = [
-        ['name' => 'iPhone 15', 'price' => 2500, 'category' => 'Phones'],
-        ['name' => 'Samsung Galaxy S24', 'price' => 2200, 'category' => 'Phones'],
-        ['name' => 'Lenovo Laptop', 'price' => 3000, 'category' => 'Computers'],
-        ['name' => 'Wireless Mouse', 'price' => 50, 'category' => 'Accessories']
-    ];
+    $products = DB::table('products')->get();
 
     return view('products', compact('products'));
 });
@@ -35,8 +32,12 @@ Route::post('/add-product', function (Request $request) {
     $product = [
         'name' => $request->name,
         'price' => $request->price,
-        'category' => $request->category
+        'category' => $request->category,
+        'created_at' => now(),
+        'updated_at' => now()
     ];
+
+    DB::table('products')->insert($product);
 
     return view('product-added', compact('product'));
 });
