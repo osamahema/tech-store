@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tech Store - Add Product</title>
+    <title>Tech Store - Product Form</title>
     <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 <body>
@@ -22,31 +22,89 @@
 
 <main class="container">
 
-    <h1 class="page-title">Add New Product</h1>
+    @if(isset($product))
+
+        <h1 class="page-title">Edit Product</h1>
+
+    @else
+
+        <h1 class="page-title">Add New Product</h1>
+
+    @endif
 
     <div class="form-card">
 
-        <form action="/add-product" method="POST">
-            @csrf
+        @if(isset($product))
+
+            <form action="/update" method="POST">
+                @csrf
+
+                <input type="hidden" name="id" value="{{ $product->id }}">
+
+        @else
+
+            <form action="/add-product" method="POST">
+                @csrf
+
+        @endif
 
             <label>Product Name</label>
-            <input type="text" name="name" placeholder="Enter product name" required>
+
+            <input type="text"
+                   name="name"
+                   value="{{ isset($product) ? $product->name : '' }}"
+                   placeholder="Enter product name"
+                   required>
 
             <label>Price (NIS)</label>
-            <input type="number" name="price" placeholder="Enter product price" min="0" required>
+
+            <input type="number"
+                   name="price"
+                   value="{{ isset($product) ? $product->price : '' }}"
+                   placeholder="Enter product price"
+                   min="0"
+                   required>
 
             <label>Category</label>
+
             <select name="category">
-                <option>Phones</option>
-                <option>Computers</option>
-                <option>Accessories</option>
+
+                <option value="Phones"
+                    {{ isset($product) && $product->category == 'Phones' ? 'selected' : '' }}>
+                    Phones
+                </option>
+
+                <option value="Computers"
+                    {{ isset($product) && $product->category == 'Computers' ? 'selected' : '' }}>
+                    Computers
+                </option>
+
+                <option value="Accessories"
+                    {{ isset($product) && $product->category == 'Accessories' ? 'selected' : '' }}>
+                    Accessories
+                </option>
+
             </select>
 
-            <button type="submit" class="btn">Add Product</button>
+            @if(isset($product))
+
+                <button type="submit" class="btn">
+                    Update Product
+                </button>
+
+            @else
+
+                <button type="submit" class="btn">
+                    Add Product
+                </button>
+
+            @endif
+
         </form>
 
     </div>
 
 </main>
+
 </body>
 </html>

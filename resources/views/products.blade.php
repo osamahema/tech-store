@@ -25,8 +25,11 @@
     <h1 class="page-title">Our Products</h1>
 
     <div class="products">
+
         @foreach ($products as $product)
+
             <div class="product-card">
+
                 <h3>{{ $product->name }}</h3>
 
                 <p class="price">
@@ -36,8 +39,25 @@
                 <p class="category-name">
                     Category: {{ $product->category }}
                 </p>
+
+                <form action="/edit/{{ $product->id }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn">
+                        Edit
+                    </button>
+                </form>
+
+                <form action="/delete/{{ $product->id }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn">
+                        Delete
+                    </button>
+                </form>
+
             </div>
+
         @endforeach
+
     </div>
 
     <a href="/add-product" class="btn">Add New Product</a>
