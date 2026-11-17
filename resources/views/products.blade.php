@@ -1,68 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tech Store - Products</title>
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
-</head>
-<body>
+@extends('layouts.app')
 
-<header>
-    <div class="container header-content">
-        <div class="logo">Tech Store</div>
+@section('content')
 
-        <nav>
-            <a href="/">Home</a>
-            <a href="/products">Products</a>
-            <a href="/add-product">Add Product</a>
-        </nav>
-    </div>
-</header>
+<h1 class="page-title">Our Products</h1>
 
-<main class="container">
+<div class="products">
 
-    <h1 class="page-title">Our Products</h1>
+    @foreach ($products as $product)
 
-    <div class="products">
+        <div class="product-card">
 
-        @foreach ($products as $product)
+            <h3>{{ $product->name }}</h3>
 
-            <div class="product-card">
+            <p class="price">
+                {{ $product->price }} NIS
+            </p>
 
-                <h3>{{ $product->name }}</h3>
+            <p class="category-name">
+                Category: {{ $product->category }}
+            </p>
 
-                <p class="price">
-                    {{ $product->price }} NIS
-                </p>
+            <a href="/edit/{{ $product->id }}" class="btn">
+                Edit
+            </a>
 
-                <p class="category-name">
-                    Category: {{ $product->category }}
-                </p>
+            <a href="/delete/{{ $product->id }}" class="btn"
+               onclick="return confirm('Are you sure?')">
+                Delete
+            </a>
 
-                <form action="/edit/{{ $product->id }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn">
-                        Edit
-                    </button>
-                </form>
+        </div>
 
-                <form action="/delete/{{ $product->id }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn">
-                        Delete
-                    </button>
-                </form>
+    @endforeach
 
-            </div>
+</div>
 
-        @endforeach
+<a href="/add-product" class="btn">Add New Product</a>
 
-    </div>
-
-    <a href="/add-product" class="btn">Add New Product</a>
-
-</main>
-
-</body>
-</html>
+@endsection

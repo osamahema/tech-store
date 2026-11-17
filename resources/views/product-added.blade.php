@@ -1,45 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tech Store - Product Added</title>
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
-</head>
-<body>
+@extends('layouts.app')
 
-<header>
-    <div class="container header-content">
-        <div class="logo">Tech Store</div>
+@section('content')
 
-        <nav>
-            <a href="/">Home</a>
-            <a href="/products">Products</a>
-            <a href="/add-product">Add Product</a>
-        </nav>
-    </div>
-</header>
+<h1 class="page-title">Product Added Successfully!</h1>
 
-<main class="container">
+<div class="product-card">
 
-    <div class="success-card">
+    <h3>{{ $product['name'] }}</h3>
 
-        <h2>Product Added Successfully!</h2>
+    <p class="price">{{ $product['price'] }} NIS</p>
 
-        <h3>{{ $product['name'] }}</h3>
+    <p>Category: {{ $product['category'] }}</p>
 
-        <p class="price">{{ $product['price'] }} NIS</p>
+    <a href="/products" class="btn">View Products</a>
 
-        <p class="category-name">
-            Category: {{ $product['category'] }}
-        </p>
+</div>
 
-        <a href="/products" class="btn">View Products</a>
-
-        <a href="/add-product" class="btn btn-secondary">Add Another Product</a>
-
-    </div>
-
-</main>
-</body>
-</html>
+@endsection

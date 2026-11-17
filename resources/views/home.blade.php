@@ -1,43 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tech Store - Home</title>
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
-</head>
-<body>
+@extends('layouts.app')
 
-<header>
-    <div class="container header-content">
-        <div class="logo">Tech Store</div>
+@section('content')
 
-        <nav>
-            <a href="/">Home</a>
-            <a href="/products">Products</a>
-            <a href="/add-product">Add Product</a>
-        </nav>
-    </div>
-</header>
+<h1 class="page-title">Welcome to Tech Store</h1>
 
-<main class="container">
+<div class="products">
 
-    <section class="hero">
-        <h1>Welcome to Tech Store</h1>
-        <p>Your simple online electronics store.</p>
-        <a href="/products" class="btn">Explore Products</a>
-    </section>
+    @foreach ($categories as $category)
 
-    <h2 class="section-title">Our Categories</h2>
+        <div class="product-card">
 
-    <div class="categories">
-        @foreach ($categories as $category)
-            <div class="category-card">
-                {{ $category }}
-            </div>
-        @endforeach
-    </div>
+            <h3>{{ $category }}</h3>
 
-</main>
-</body>
-</html>
+            <a href="/products" class="btn">
+                View Products
+            </a>
+
+        </div>
+
+    @endforeach
+
+</div>
+
+@endsection

@@ -1,110 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tech Store - Product Form</title>
-    <link rel="stylesheet" href="{{ asset('style.css') }}">
-</head>
-<body>
+@extends('layouts.app')
 
-<header>
-    <div class="container header-content">
-        <div class="logo">Tech Store</div>
+@section('content')
 
-        <nav>
-            <a href="/">Home</a>
-            <a href="/products">Products</a>
-            <a href="/add-product">Add Product</a>
-        </nav>
-    </div>
-</header>
+<h1 class="page-title">Add New Product</h1>
 
-<main class="container">
+<div class="form-card">
 
-    @if(isset($product))
+    <form action="/add-product" method="POST">
 
-        <h1 class="page-title">Edit Product</h1>
+        @csrf
 
-    @else
+        <label>Product Name</label>
+        <input type="text" name="name"
+               placeholder="Enter product name" required>
 
-        <h1 class="page-title">Add New Product</h1>
+        <label>Price (NIS)</label>
+        <input type="number" name="price"
+               placeholder="Enter product price"
+               min="0" step="0.01" required>
 
-    @endif
+        <label>Category</label>
 
-    <div class="form-card">
+        <select name="category" required>
+            <option value="Phones">Phones</option>
+            <option value="Computers">Computers</option>
+            <option value="Accessories">Accessories</option>
+        </select>
 
-        @if(isset($product))
+        <button type="submit" class="btn">
+            Add Product
+        </button>
 
-            <form action="/update" method="POST">
-                @csrf
+    </form>
 
-                <input type="hidden" name="id" value="{{ $product->id }}">
+</div>
 
-        @else
-
-            <form action="/add-product" method="POST">
-                @csrf
-
-        @endif
-
-            <label>Product Name</label>
-
-            <input type="text"
-                   name="name"
-                   value="{{ isset($product) ? $product->name : '' }}"
-                   placeholder="Enter product name"
-                   required>
-
-            <label>Price (NIS)</label>
-
-            <input type="number"
-                   name="price"
-                   value="{{ isset($product) ? $product->price : '' }}"
-                   placeholder="Enter product price"
-                   min="0"
-                   required>
-
-            <label>Category</label>
-
-            <select name="category">
-
-                <option value="Phones"
-                    {{ isset($product) && $product->category == 'Phones' ? 'selected' : '' }}>
-                    Phones
-                </option>
-
-                <option value="Computers"
-                    {{ isset($product) && $product->category == 'Computers' ? 'selected' : '' }}>
-                    Computers
-                </option>
-
-                <option value="Accessories"
-                    {{ isset($product) && $product->category == 'Accessories' ? 'selected' : '' }}>
-                    Accessories
-                </option>
-
-            </select>
-
-            @if(isset($product))
-
-                <button type="submit" class="btn">
-                    Update Product
-                </button>
-
-            @else
-
-                <button type="submit" class="btn">
-                    Add Product
-                </button>
-
-            @endif
-
-        </form>
-
-    </div>
-
-</main>
-
-</body>
-</html>
+@endsection
