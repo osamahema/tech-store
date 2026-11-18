@@ -20,6 +20,7 @@
             <a href="/">Home</a>
             <a href="/products">Products</a>
             <a href="/add-product">Add Product</a>
+            <a href="/users">Users</a>
         </nav>
 
     </div>
