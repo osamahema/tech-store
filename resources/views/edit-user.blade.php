@@ -1,36 +1,74 @@
 @extends('layouts.app')
 
+@section('title', 'Edit User - Tech Store')
+
 @section('content')
 
-<h1 class="page-title">Edit User</h1>
+<h1 class="h3 mb-4 text-gray-800">Edit User</h1>
 
-<div class="form-card">
+<div class="row">
+    <div class="col-lg-8">
 
-    <form action="/update-user/{{ $user->id }}" method="POST">
+        <div class="card shadow mb-4">
 
-        @csrf
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Update User Information
+                </h6>
+            </div>
 
-        <label>User Name</label>
+            <div class="card-body">
 
-        <input type="text" name="name"
-               value="{{ $user->name }}" required>
+                <form action="/update-user/{{ $user->id }}" method="POST">
+                    @csrf
 
-        <label>Email</label>
+                    <div class="form-group">
+                        <label>User Name</label>
 
-        <input type="email" name="email"
-               value="{{ $user->email }}" required>
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               value="{{ old('name', $user->name) }}"
+                               required>
+                    </div>
 
-        <label>New Password</label>
+                    <div class="form-group">
+                        <label>Email Address</label>
 
-        <input type="password" name="password"
-               placeholder="Leave empty to keep current password">
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               value="{{ old('email', $user->email) }}"
+                               required>
+                    </div>
 
-        <button type="submit" class="btn">
-            Update User
-        </button>
+                    <div class="form-group">
+                        <label>New Password</label>
 
-    </form>
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               placeholder="Leave empty to keep current password">
 
+                        <small class="form-text text-muted">
+                            Leave this field empty if you do not want to change the password.
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update User
+                    </button>
+
+                    <a href="/users" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
 @endsection

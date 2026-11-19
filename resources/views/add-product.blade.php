@@ -1,38 +1,74 @@
 @extends('layouts.app')
 
+@section('title', 'Add Product - Tech Store')
+
 @section('content')
 
-<h1 class="page-title">Add New Product</h1>
+<h1 class="h3 mb-4 text-gray-800">Add New Product</h1>
 
-<div class="form-card">
+<div class="row">
+    <div class="col-lg-8">
 
-    <form action="/add-product" method="POST">
+        <div class="card shadow mb-4">
 
-        @csrf
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Product Information
+                </h6>
+            </div>
 
-        <label>Product Name</label>
-        <input type="text" name="name"
-               placeholder="Enter product name" required>
+            <div class="card-body">
 
-        <label>Price (NIS)</label>
-        <input type="number" name="price"
-               placeholder="Enter product price"
-               min="0" step="0.01" required>
+                <form action="/add-product" method="POST">
+                    @csrf
 
-        <label>Category</label>
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               value="{{ old('name') }}"
+                               placeholder="Enter product name"
+                               required>
+                    </div>
 
-        <select name="category" required>
-            <option value="Phones">Phones</option>
-            <option value="Computers">Computers</option>
-            <option value="Accessories">Accessories</option>
-        </select>
+                    <div class="form-group">
+                        <label>Price (NIS)</label>
+                        <input type="number"
+                               name="price"
+                               class="form-control"
+                               value="{{ old('price') }}"
+                               min="0"
+                               step="0.01"
+                               placeholder="Enter product price"
+                               required>
+                    </div>
 
-        <button type="submit" class="btn">
-            Add Product
-        </button>
+                    <div class="form-group">
+                        <label>Category</label>
 
-    </form>
+                        <select name="category" class="form-control" required>
+                            <option value="">Select Category</option>
+                            <option value="Phones">Phones</option>
+                            <option value="Computers">Computers</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                    </div>
 
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Add Product
+                    </button>
+
+                    <a href="/products" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
 @endsection

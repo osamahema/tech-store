@@ -1,35 +1,76 @@
 @extends('layouts.app')
 
+@section('title', 'Add User - Tech Store')
+
 @section('content')
 
-<h1 class="page-title">Add New User</h1>
+<h1 class="h3 mb-4 text-gray-800">Add New User</h1>
 
-<div class="form-card">
+<div class="row">
+    <div class="col-lg-8">
 
-    <form action="/add-user" method="POST">
+        <div class="card shadow mb-4">
 
-        @csrf
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    User Information
+                </h6>
+            </div>
 
-        <label>User Name</label>
-        <input type="text" name="name"
-               value="{{ old('name') }}"
-               placeholder="Enter user name" required>
+            <div class="card-body">
 
-        <label>Email</label>
-        <input type="email" name="email"
-               value="{{ old('email') }}"
-               placeholder="Enter email" required>
+                <form action="/add-user" method="POST">
+                    @csrf
 
-        <label>Password</label>
-        <input type="password" name="password"
-               placeholder="Enter password" required>
+                    <div class="form-group">
+                        <label>User Name</label>
 
-        <button type="submit" class="btn">
-            Add User
-        </button>
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               value="{{ old('name') }}"
+                               placeholder="Enter user name"
+                               required>
+                    </div>
 
-    </form>
+                    <div class="form-group">
+                        <label>Email Address</label>
 
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               value="{{ old('email') }}"
+                               placeholder="Enter email address"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               placeholder="Enter password"
+                               required>
+                        <small class="form-text text-muted">
+                            Password must contain at least 8 characters.
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Add User
+                    </button>
+
+                    <a href="/users" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
 @endsection

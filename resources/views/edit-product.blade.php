@@ -1,53 +1,84 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Product - Tech Store')
+
 @section('content')
 
-<h1 class="page-title">Edit Product</h1>
+<h1 class="h3 mb-4 text-gray-800">Edit Product</h1>
 
-<div class="form-card">
+<div class="row">
+    <div class="col-lg-8">
 
-    <form action="/update/{{ $product->id }}" method="POST">
+        <div class="card shadow mb-4">
 
-        @csrf
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Update Product Information
+                </h6>
+            </div>
 
-        <label>Product Name</label>
+            <div class="card-body">
 
-        <input type="text" name="name"
-               value="{{ $product->name }}" required>
+                <form action="/update/{{ $product->id }}" method="POST">
+                    @csrf
 
-        <label>Price (NIS)</label>
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               value="{{ old('name', $product->name) }}"
+                               required>
+                    </div>
 
-        <input type="number" name="price"
-               value="{{ $product->price }}"
-               min="0" step="0.01" required>
+                    <div class="form-group">
+                        <label>Price (NIS)</label>
+                        <input type="number"
+                               name="price"
+                               class="form-control"
+                               value="{{ old('price', $product->price) }}"
+                               min="0"
+                               step="0.01"
+                               required>
+                    </div>
 
-        <label>Category</label>
+                    <div class="form-group">
+                        <label>Category</label>
 
-        <select name="category" required>
+                        <select name="category" class="form-control" required>
 
-            <option value="Phones"
-                {{ $product->category == 'Phones' ? 'selected' : '' }}>
-                Phones
-            </option>
+                            <option value="Phones"
+                                {{ $product->category == 'Phones' ? 'selected' : '' }}>
+                                Phones
+                            </option>
 
-            <option value="Computers"
-                {{ $product->category == 'Computers' ? 'selected' : '' }}>
-                Computers
-            </option>
+                            <option value="Computers"
+                                {{ $product->category == 'Computers' ? 'selected' : '' }}>
+                                Computers
+                            </option>
 
-            <option value="Accessories"
-                {{ $product->category == 'Accessories' ? 'selected' : '' }}>
-                Accessories
-            </option>
+                            <option value="Accessories"
+                                {{ $product->category == 'Accessories' ? 'selected' : '' }}>
+                                Accessories
+                            </option>
 
-        </select>
+                        </select>
+                    </div>
 
-        <button type="submit" class="btn">
-            Update Product
-        </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Product
+                    </button>
 
-    </form>
+                    <a href="/products" class="btn btn-secondary">
+                        Cancel
+                    </a>
 
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
 @endsection
